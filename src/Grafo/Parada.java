@@ -10,26 +10,26 @@ package Grafo;
  */
 public class Parada {
     
-    private String parada;
+    private String nparada;
     private Boolean sucursal;
 
-    public Parada(String parada, Boolean sucursal) {
-        this.parada = parada;
+    public Parada(String nparada, Boolean sucursal) {
+        this.nparada = nparada;
         this.sucursal = false;
     }
 
     /**
      * @return the parada
      */
-    public String getParada() {
-        return parada;
+    public String getNparada() {
+        return nparada;
     }
 
     /**
-     * @param parada the parada to set
+     * @param nparada the parada to set
      */
-    public void setParada(String parada) {
-        this.parada = parada;
+    public void setNparada(String nparada) {
+        this.nparada = nparada;
     }
 
     /**

@@ -9,23 +9,23 @@ import Grafo.Parada;
  * @author Diego
  */
 public class NodoG {
-    private Parada nombre;
+    private Parada parada;
     private NodoG next;
     private ListaG adyacentes;
     private Integer numeroComponente;
 
     public NodoG(Parada parada) {
-        this.nombre = nombre;
+        this.parada = parada;
         this.next = null;
         this.adyacentes = new ListaG();
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Parada getParada() {
+        return parada;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setParada(Parada parada) {
+        this.parada = parada;
     }
 
     public NodoG getNext() {
@@ -50,5 +50,6 @@ public class NodoG {
 
     public void setNumeroComponente(Integer numeroComponente) {
         this.numeroComponente = numeroComponente;
+    }
     
 }
