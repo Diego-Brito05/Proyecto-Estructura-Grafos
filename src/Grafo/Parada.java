@@ -46,4 +46,12 @@ public class Parada {
         this.sucursal = sucursal;
     }
     
+    public void CambiarSucursal(){
+        if (getSucursal()){
+            setSucursal(false);
+        }
+        else
+            setSucursal(true);
+        }        
+    
 }
