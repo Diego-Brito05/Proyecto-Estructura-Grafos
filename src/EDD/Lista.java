@@ -179,6 +179,26 @@ public class Lista implements Listabase{
             System.out.println(" ["+pointer.getElement()+"] " );
             pointer=pointer.getNext();
         }
+    }    
+    public Nodo buscar(String data) {
+        Nodo actual = head;
+        while (actual != null) {
+            if (actual.getElement().equals(data)) {
+                return actual; // Retorna el nodo encontrado
+            }
+            actual = actual.getNext();
+        }
+        return null; // No se encontró el nodo
     }
-    
+
+    public Boolean EstaEn(String data) {
+        Nodo actual = head;
+        while (actual != null) {
+            if (actual.getElement().equals(data)) {
+                return true; // Retorna el nodo encontrado
+            }
+            actual = actual.getNext();
+        }
+        return false; // No se encontró el nodo
+    }
 }

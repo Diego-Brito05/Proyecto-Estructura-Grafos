@@ -11,10 +11,12 @@ package Grafo;
 public class Parada {
     
     private String nparada;
+    private Integer numero;
     private Boolean sucursal;
 
-    public Parada(String nparada, Boolean sucursal) {
+    public Parada(String nparada, Integer numero, Boolean sucursal) {
         this.nparada = nparada;
+        this.numero = numero;
         this.sucursal = false;
     }
 
@@ -53,5 +55,19 @@ public class Parada {
         else
             setSucursal(true);
         }        
+
+    /**
+     * @return the numero
+     */
+    public Integer getNumero() {
+        return numero;
+    }
+
+    /**
+     * @param numero the numero to set
+     */
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
     
 }

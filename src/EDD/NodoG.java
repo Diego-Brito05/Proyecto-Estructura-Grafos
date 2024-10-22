@@ -51,5 +51,20 @@ public class NodoG {
     public void setNumeroComponente(Integer numeroComponente) {
         this.numeroComponente = numeroComponente;
     }
-    
+    //imprime los atributos del nodo
+    public void print(){
+        System.out.println("-----------------------------------");
+        System.out.println("Id: "+getParada().getNparada());
+        System.out.print("Relaciones: ");
+        NodoG pointer = getAdyacentes().getHead();
+        while (pointer!=null){
+            System.out.print("["+(pointer.getParada().getNparada())+"]");
+            pointer=pointer.getNext(); 
+        }
+        System.out.println(" ");
+        System.out.println("-----------------------------------");
+    }
+  
 }
+    
+
