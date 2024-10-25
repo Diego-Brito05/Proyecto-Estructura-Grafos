@@ -182,20 +182,16 @@ static String gsucur;
 
     private void addsucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addsucActionPerformed
         // TODO add your handling code here:
+        System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         String sucur = sucursal.getText();
         String cc = Menu.grafo.buscarp(sucur);
         Node node = Menu.libro.getNode(cc);
-if (node != null) {
-    String idnod = node.getId();
-    // Cambiar el color del nodo aquí
-} else {
-    JOptionPane.showMessageDialog(null, "Nodo no encontrado: " + sucur);
-}
+        String idnod = node.getId();
         if (cc.equals(sucur)){
-            System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+           
             Menu.grafo.buscarpar(sucur).CambiarSucursal();
             long currentTimeMillis = System.currentTimeMillis();
-            String idnod = Menu.libro.getNode(sucur).getId();
+            
             String nuvo ="node { size: 20px; shape:circle; fill-color: yellow;}";
             libro.nodeAttributeChanged(idnod,currentTimeMillis , "ui.fill", "blue", "yellow", null);
             Menu.libro.display(true);
