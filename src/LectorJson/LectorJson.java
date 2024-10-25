@@ -184,10 +184,10 @@ public class LectorJson {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error al reemplazar el archivo original.");
         }  
     } 
-}
+} 
         
         
         
