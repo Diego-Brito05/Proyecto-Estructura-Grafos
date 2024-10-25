@@ -133,6 +133,49 @@ public class Grafo {
     *@param name
     *@return
     */
+    public String buscarp(String parade){
+        if (nodos.isEmpty()){
+            return null;
+        }else{
+            NodoG pointer=nodos.getHead();
+            NodoG temp=null;
+            while(pointer!=null){
+                if (pointer.getParada().getNparada().equals(parade)){
+                    
+                    temp=pointer;
+                    break;
+                }
+                pointer=pointer.getNext();
+            }
+            if(temp!= null){
+                return temp.getParada().getNparada();
+            } else{
+                JOptionPane.showMessageDialog(null, "Parada no encontrada");
+                return null;
+            }
+        }
+        
+     
+}
+    public Parada buscarpar(String parade){
+       NodoG pointer=nodos.getHead();
+       NodoG temp=null;
+       while(pointer!=null){
+                if (pointer.getParada().getNparada().equals(parade)){
+                    
+                    temp=pointer;
+                    break;
+                }
+                pointer=pointer.getNext();
+            }
+            if(temp!= null){
+                return temp.getParada();
+                
+            }else {
+               return null;
+            }
+       }
+
     public NodoG searchByname(String name){
         if (nodos.isEmpty()){
             return null;
