@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenseas/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaces;
@@ -9,6 +9,7 @@ import EDD.NodoG;
 import Grafo.Arista;
 import Grafo.Grafo;
 import Auxiliar.Auxiliar;
+import static Interfaces.ModGraph.gsucur;
 import LectorJson.LectorJson;
 import java.io.File;
 import java.io.IOException;
@@ -16,10 +17,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.swing_viewer.SwingViewer;
@@ -32,9 +35,20 @@ import org.graphstream.ui.swing_viewer.ViewPanel;
  * version 21/10/23
  */
 public class Menu extends javax.swing.JFrame {
-    static private Grafo grafo;
+    static Grafo grafo;
     public static ModificarGrafo v0;
     static private File archivo;
+    static Graph libro;
+    
+    
+   static String mySlylesheet = "node { size: 15px; shape:circle; fill-color: blue; text-background-color:white; text-background-mode:rounded-box; text-alignment:at-right; shadow-mode: plain; shadow-color: black; shadow-width:5px; shadow-offset: 0px;text-offset: 5px, 5px;}"
+            + "edge { size : 8px; fill-color: black;}";
+                
+    
+
+   
+    
+                    
     
     
     /**
@@ -73,6 +87,14 @@ public class Menu extends javax.swing.JFrame {
     public void setArchivo(File archivo) {
         this.archivo = archivo;
     }
+    
+    public Graph getlibro(){
+        return libro;
+    }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,13 +221,10 @@ public class Menu extends javax.swing.JFrame {
 
             Graph graphLibrary = new MultiGraph("Tren");
             System.setProperty("org.graphstream.ui", "swing");
+             System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
             NodoG auxNodo =getGrafo().getNodos().getHead();      
 
-            graphLibrary.setAttribute("ui.stylesheet", "node{\n" +
-                    "    size: 50px, 50px;\n" +
-                    "    fill-color: gray;\n" +
-                    "    text-mode: normal; \n" +
-                    "}");
+            graphLibrary.setAttribute("ui.stylesheet", mySlylesheet);
             //Recorre los nodos y los agrega al grafo
             while(auxNodo!=null){
                 String numero=Integer.toString(auxNodo.getParada().getNumero());
@@ -215,7 +234,17 @@ public class Menu extends javax.swing.JFrame {
                 graphLibrary.getNode(numero).setAttribute("ui.label", NombreParada);
                 graphLibrary.getNode(numero).setAttribute("ui.frozen");
                 auxNodo=auxNodo.getNext();
-            }                
+                libro = graphLibrary;
+                libro.nodeAttributeChanged(numero, WIDTH, numero, numero, v0, v0);
+                
+                
+                
+                
+                
+            } 
+            
+        
+            
 
             //Recorre las aristas y las agrega al grafo
             Arista arista=getGrafo().getAristas().getHead();
@@ -231,13 +260,22 @@ public class Menu extends javax.swing.JFrame {
             
             }
             this.displayGraph(graphLibrary);
+            
             }
             catch(Exception err){
                     JOptionPane.showMessageDialog(null, err);
             }
+            new ModGraph().setVisible(true);
+            
     }//GEN-LAST:event_MostrarGrafoActionPerformed
     }
-    
+    public static void CambiaColorNodo(Graph graph, String nodeId, String color) {
+    if (graph.getNode(nodeId) != null) {
+        graph.getNode(nodeId).setAttribute("ui.color", color);
+    } else {
+        JOptionPane.showMessageDialog(null, "Nodo no encontrado: " + nodeId);
+    }
+}
     
     
     
@@ -251,6 +289,7 @@ public class Menu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu(grafo,archivo).setVisible(true);
+                
             }
         });
     }
@@ -262,3 +301,4 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
+
