@@ -9,6 +9,7 @@ import javax.swing.*;
 import EDD.*;
 import Grafo.*;
 import Interfaces.Menu.*;
+
 import static Interfaces.Menu.libro;
 import static Interfaces.Menu.mySlylesheet;
 import org.graphstream.graph.Graph;
@@ -54,6 +55,12 @@ static String gsucur;
         jLabel5 = new javax.swing.JLabel();
         sucursal = new javax.swing.JTextField();
         addsuc = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        secsuc = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        BuBP = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Editor");
@@ -79,7 +86,7 @@ static String gsucur;
         jLabel3.setText("Modificar t");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel4.setText("Sucursales");
+        jLabel4.setText("Colocar Sucursales");
 
         jLabel5.setText("Escriba una parada");
         jLabel5.setFocusable(false);
@@ -98,6 +105,23 @@ static String gsucur;
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel6.setText("Cobertura Sucursal");
+
+        jLabel7.setText("Escriba una Sucursal");
+        jLabel7.setToolTipText("");
+
+        BuBP.setText("DFS");
+        BuBP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuBPActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Seleccione el Metodo");
+
+        jButton2.setText("BFS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,29 +132,47 @@ static String gsucur;
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(tButt)
-                                .addGap(146, 146, 146)
-                                .addComponent(addsuc))
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addGap(99, 99, 99))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(jLabel3)
-                                        .addGap(159, 159, 159))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(newt, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4)
-                                    .addComponent(sucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(newt, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(6, 6, 6)
+                                            .addComponent(jLabel7))
+                                        .addComponent(jLabel6)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(12, 12, 12)
+                                .addComponent(sucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(secsuc, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tButt)
+                                        .addGap(146, 146, 146)
+                                        .addComponent(addsuc))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel8)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(119, 119, 119)
                         .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(BuBP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -139,9 +181,9 @@ static String gsucur;
                 .addGap(9, 9, 9)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(newt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +195,19 @@ static String gsucur;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tButt)
                     .addComponent(addsuc))
-                .addGap(193, 193, 193))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(secsuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BuBP)
+                    .addComponent(jButton2))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,20 +236,32 @@ static String gsucur;
 
     private void addsucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addsucActionPerformed
         // TODO add your handling code here:
-        System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         String sucur = sucursal.getText();
         String cc = Menu.grafo.buscarp(sucur);
         Node node = Menu.libro.getNode(cc);
-        String idnod = node.getId();
+
+        
+    // Cambiar el color del nodo aquí
+
         if (cc.equals(sucur)){
-           
-            Menu.grafo.buscarpar(sucur).CambiarSucursal();
-            long currentTimeMillis = System.currentTimeMillis();
+            int tom= Menu.grafo.buscarpar(sucur).getNumero();
+            if (Menu.grafo.buscarpar(cc).getSucursal()){
+                Menu.grafo.buscarpar(sucur).CambiarSucursal();
+                JOptionPane.showMessageDialog(null,sucur+" ya no tiene sucursal");
+                Menu.libro.getNode(tom-1).setAttribute("ui.label", sucur);
+                
+            }else{
             
-            String nuvo ="node { size: 20px; shape:circle; fill-color: yellow;}";
-            libro.nodeAttributeChanged(idnod,currentTimeMillis , "ui.fill", "blue", "yellow", null);
-            Menu.libro.display(true);
+            System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+            Menu.grafo.buscarpar(sucur).CambiarSucursal();
+            JOptionPane.showMessageDialog(null, "Sucursal colocada en "+ sucur);
            
+            String nuvo ="node {icon-mode: at-left; icon: url('data/Smiley_032.png');}";
+            Menu.libro.getNode(tom-1).setAttribute("ui.stylesheet", nuvo);
+            Menu.libro.getNode(tom-1).setAttribute("ui.label", "🏠︎"+sucur+"🏠");
+            
+            
+            }
             
             
             
@@ -205,6 +271,17 @@ static String gsucur;
         
     }//GEN-LAST:event_addsucActionPerformed
     }
+    private void BuBPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuBPActionPerformed
+        // TODO add your handling code here:
+        String par= secsuc.getText();
+        if(!Menu.grafo.searchByname(par).getParada().getSucursal()){
+            JOptionPane.showMessageDialog(null, par +" No cuenta con una sucursal");
+        }
+        Menu.grafo.BP(par, t);
+        JOptionPane.showMessageDialog(null, par +" Si cuenta con una sucursal");
+        
+    }//GEN-LAST:event_BuBPActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -241,13 +318,19 @@ static String gsucur;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuBP;
     private javax.swing.JButton addsuc;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField newt;
+    private javax.swing.JTextField secsuc;
     private javax.swing.JTextField sucursal;
     private javax.swing.JButton tButt;
     // End of variables declaration//GEN-END:variables
@@ -269,5 +352,6 @@ static String gsucur;
     }
 
     
+
 
 }

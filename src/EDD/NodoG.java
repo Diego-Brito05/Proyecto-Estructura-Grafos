@@ -13,11 +13,13 @@ public class NodoG {
     private NodoG next;
     private ListaG adyacentes;
     private Integer numeroComponente;
+    private boolean visitado;
 
     public NodoG(Parada parada) {
         this.parada = parada;
         this.next = null;
         this.adyacentes = new ListaG();
+        this.visitado=false;
     }
 
     public Parada getParada() {
@@ -51,6 +53,16 @@ public class NodoG {
     public void setNumeroComponente(Integer numeroComponente) {
         this.numeroComponente = numeroComponente;
     }
+
+    public boolean isVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
+    }
+    
+    
     //imprime los atributos del nodo
     public void print(){
         System.out.println("-----------------------------------");

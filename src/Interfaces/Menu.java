@@ -40,9 +40,9 @@ public class Menu extends javax.swing.JFrame {
     static private File archivo;
     static Graph libro;
     
-    
-   static String mySlylesheet = "node { size: 15px; shape:circle; fill-color: blue; text-background-color:white; text-background-mode:rounded-box; text-alignment:at-right; shadow-mode: plain; shadow-color: black; shadow-width:5px; shadow-offset: 0px;text-offset: 5px, 5px;}"
-            + "edge { size : 8px; fill-color: black;}";
+   
+   static String mySlylesheet = "node { size: 15px; shape:circle; fill-color:blue; text-size: 20;text-background-color:white; text-background-mode:rounded-box; text-alignment:at-right; shadow-mode: plain; shadow-color: black; shadow-width:5px; shadow-offset: 0px;text-offset: 5px, 5px;}"
+            + "edge { size : 10px; fill-color: black;}";
                 
     
 
@@ -218,7 +218,7 @@ public class Menu extends javax.swing.JFrame {
         else{
         
             try{
-
+            
             Graph graphLibrary = new MultiGraph("Tren");
             System.setProperty("org.graphstream.ui", "swing");
              System.setProperty("gs.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
