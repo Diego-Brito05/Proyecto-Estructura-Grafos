@@ -19,17 +19,27 @@ import javax.swing.JOptionPane;
 public class Grafo {
     private static ListaG nodos;
     private static ListaArista aristas;
+    private Lista nodosVisitados;
+    private int contador;
 
     public Grafo() {
         ListaG lista=new ListaG();
         ListaArista lista1=new ListaArista();
         this.nodos=lista;
         this.aristas=lista1;
+        this.nodosVisitados = new Lista();
+        this.contador = 0;
     }
 
-    public static ListaG getNodos() {
+    /**
+     *
+     * @return
+     */
+    public /*static */ListaG getNodos() {
         return nodos;
     }
+    
+    
 
     public void setNodos(ListaG nodos) {
         this.nodos = nodos;
@@ -133,6 +143,50 @@ public class Grafo {
     *@param name
     *@return
     */
+     public String buscarp(String parade){
+        if (nodos.isEmpty()){
+            return null;
+        }else{
+            NodoG pointer=nodos.getHead();
+            NodoG temp=null;
+            while(pointer!=null){
+                if (pointer.getParada().getNparada().equals(parade)){
+                    
+                    temp=pointer;
+                    break;
+                }
+                pointer=pointer.getNext();
+            }
+            if(temp!= null){
+                return temp.getParada().getNparada();
+            } else{
+                JOptionPane.showMessageDialog(null, "Parada no encontrada");
+                return null;
+            }
+        } 
+        
+     
+}
+
+       public Parada buscarpar(String parade){
+       NodoG pointer=nodos.getHead();
+       NodoG temp=null;
+       while(pointer!=null){
+                if (pointer.getParada().getNparada().equals(parade)){
+                    
+                    temp=pointer;
+                    break;
+                }
+                pointer=pointer.getNext();
+            }
+            if(temp!= null){
+                return temp.getParada();
+                
+            }else {
+               return null;
+            }
+       }
+       
     public NodoG searchByname(String name){
         if (nodos.isEmpty()){
             return null;
@@ -159,5 +213,89 @@ public class Grafo {
         }     
     }
     
-    
+   
+    public void BP(String nombreInicio, int t) {
+        NodoG nodoInicio = searchByname(nombreInicio);
+        if (nodoInicio == null) {
+            System.out.println("Nodo no encontrado: " + nombreInicio);
+            return;
+        }
+
+        
+        buscarDFS(nodoInicio, t);
+
+        // Imprime la lista de nodos visitados
+       
+        Nodo pointer = nodosVisitados.getHead();
+        while (pointer != null) {
+           
+            pointer = pointer.getNext();
+        }
+
+        // Imprime el contador de nodos visitados
+        
+    }
+
+    private void buscarDFS(NodoG nodo, int t) {
+        if (nodo == null || contador >= t) {
+            return; // Detén la búsqueda si el nodo es nulo o se alcanza el límite t
+        }
+
+        // Verifica si ya se ha visitado el nodo
+        if (!haSidoVisitado(nodo)) {
+            if (nodo.getParada().getSucursal()){
+                JOptionPane.showMessageDialog(null, "El rango de la sucursal choca con la sucursal "+ nodo.getParada().getNparada());
+            }
+            
+            
+            nodosVisitados.insertFinal(nodo.getParada().getNparada()); 
+            contador++; // Incrementa el contador
+
+            // Detén la búsqueda si se alcanza el número t de nodos visitados
+            if (contador >= t) {
+                return;
+            }
+
+            // Recorre los nodos adyacentes
+            ListaG adyacentes = nodo.getAdyacentes();
+            NodoG vecino = adyacentes.getHead(); 
+
+            while (vecino != null) {
+                buscarDFS(vecino, t); // Llama recursivamente a DFS
+                vecino = vecino.getNext(); // Mueve al siguiente vecino
+            }
+        }
+    }
+
+    private boolean haSidoVisitado(NodoG nodo) {
+        // Verifica si el nodo ya está en la lista de nodos visitados
+        Nodo pointer = nodosVisitados.getHead();
+        while (pointer != null) {
+            if (pointer.getElement().equals(nodo.getParada().getNparada())) {
+                return true; // El nodo ya ha sido visitado
+            }
+            pointer = pointer.getNext();
+        }
+        return false; // El nodo no ha sido visitado
+    }
+
+    private int indexOf(NodoG nodo) {
+        // Método para encontrar el índice de un nodo en la lista (opcional)
+        NodoG pointer = nodos.getHead();
+        int index = 0;
+        while (pointer != null) {
+            if (pointer.equals(nodo)) {
+                return index;
+            }
+            pointer = pointer.getNext();
+            index++;
+        }
+        return -1; // Si no se encuentra el nodo
+    }
 }
+    
+    
+    
+    
+    
+

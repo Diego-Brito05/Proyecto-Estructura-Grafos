@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package LectorJson;
+import Grafo.Grafo;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,12 +11,8 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import EDD.Lista;
-import EDD.Nodo;
-import EDD.NodoG;
-import Grafo.Arista;
-import Grafo.Grafo;
-import java.io.*;
-
+import java.io.FileWriter;
+import java.io.PrintWriter;
 /**
  *
  * @author Diego, Jose
@@ -193,3 +190,4 @@ public class LectorJson {
         
 
        
+
