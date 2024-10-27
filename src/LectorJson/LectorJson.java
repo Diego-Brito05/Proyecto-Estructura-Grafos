@@ -10,11 +10,10 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import EDD.Lista;
-import EDD.Nodo;
-import EDD.NodoG;
-import Grafo.Arista;
 import Grafo.Grafo;
 import java.io.*;
+
+
 
 /**
  *
@@ -128,7 +127,6 @@ public class LectorJson {
 
    }
 
-
     public void escrituraJson(Grafo grafo, File archivo, String [] nLista, Integer tamano){
         String textoJson="{"+"\n"+"\"Linea\":[" + "\n"; //string que va a sobreescribir el archivo
         for(Integer i=0; i>tamano ; i++){
@@ -188,8 +186,4 @@ public class LectorJson {
         }  
     } 
 } 
-        
-        
-        
 
-       
