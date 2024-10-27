@@ -255,10 +255,6 @@ public class Menu extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, err);
             }
     }                                            
-    
-    
-           
-            
     }//GEN-LAST:event_MostrarGrafoActionPerformed
     
     public static void CambiaColorNodo(Graph graph, String nodeId, String color) {
