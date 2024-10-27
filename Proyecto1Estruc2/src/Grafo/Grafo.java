@@ -9,7 +9,6 @@ import EDD.Lista;
 import EDD.ListaArista;
 import EDD.Nodo;
 import EDD.NodoG;
-import Auxiliar.Auxiliar;
 import Grafo.Arista;
 import javax.swing.JOptionPane;
 /**
