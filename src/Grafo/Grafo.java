@@ -31,6 +31,7 @@ public class Grafo {
         this.contador = 0;
     }
 
+    Lista noval;
     /**
      *
      * @return
@@ -214,85 +215,114 @@ public class Grafo {
     }
     
    
-    public void BP(String nombreInicio, int t) {
-        NodoG nodoInicio = searchByname(nombreInicio);
-        if (nodoInicio == null) {
-            System.out.println("Nodo no encontrado: " + nombreInicio);
-            return;
-        }
+private Lista paradasNoValidas; // Lista para almacenar las paradas no válidas
 
-        
-        buscarDFS(nodoInicio, t);
-
-        // Imprime la lista de nodos visitados
-       
-        Nodo pointer = nodosVisitados.getHead();
-        while (pointer != null) {
-           
-            pointer = pointer.getNext();
-        }
-
-        // Imprime el contador de nodos visitados
-        
+public void buscarDFS(String nombreInicio, int t) {
+    NodoG nodoInicio = searchByname(nombreInicio);
+    if (nodoInicio == null) {
+        System.out.println("Nodo no encontrado: " + nombreInicio);
+        return;
     }
 
-    private void buscarDFS(NodoG nodo, int t) {
-        if (nodo == null || contador >= t) {
-            return; // Detén la búsqueda si el nodo es nulo o se alcanza el límite t
-        }
+    nodosVisitados = new Lista(); // Reiniciamos la lista de nodos visitados
+    paradasNoValidas = new Lista(); // Inicializamos la lista de paradas no válidas
+    int contador = 0; // Contador de paradas visitadas
 
-        // Verifica si ya se ha visitado el nodo
-        if (!haSidoVisitado(nodo)) {
-            if (nodo.getParada().getSucursal()){
-                JOptionPane.showMessageDialog(null, "El rango de la sucursal choca con la sucursal "+ nodo.getParada().getNparada());
-            }
-            
-            
-            nodosVisitados.insertFinal(nodo.getParada().getNparada()); 
-            contador++; // Incrementa el contador
+    // Marcamos el nodo inicial como visitado, pero no lo contamos
+    nodoInicio.setVisitado(true);
 
-            // Detén la búsqueda si se alcanza el número t de nodos visitados
-            if (contador >= t) {
-                return;
-            }
+    // Llamada recursiva para iniciar la búsqueda
+    buscarDFSRec(nodoInicio, t, contador);
+}
 
-            // Recorre los nodos adyacentes
-            ListaG adyacentes = nodo.getAdyacentes();
-            NodoG vecino = adyacentes.getHead(); 
-
-            while (vecino != null) {
-                buscarDFS(vecino, t); // Llama recursivamente a DFS
-                vecino = vecino.getNext(); // Mueve al siguiente vecino
-            }
-        }
+// Método recursivo para búsqueda en profundidad
+private void buscarDFSRec(NodoG nodoActual, int t, int contador) {
+    // Verificamos si hemos alcanzado el límite t
+    if (contador >= t) {
+        return;
     }
 
-    private boolean haSidoVisitado(NodoG nodo) {
-        // Verifica si el nodo ya está en la lista de nodos visitados
-        Nodo pointer = nodosVisitados.getHead();
-        while (pointer != null) {
-            if (pointer.getElement().equals(nodo.getParada().getNparada())) {
-                return true; // El nodo ya ha sido visitado
-            }
-            pointer = pointer.getNext();
-        }
-        return false; // El nodo no ha sido visitado
-    }
+    // Recorremos los nodos adyacentes
+    ListaG adyacentes = nodoActual.getAdyacentes();
+    NodoG vecino = adyacentes.getHead();
 
-    private int indexOf(NodoG nodo) {
-        // Método para encontrar el índice de un nodo en la lista (opcional)
-        NodoG pointer = nodos.getHead();
-        int index = 0;
-        while (pointer != null) {
-            if (pointer.equals(nodo)) {
-                return index;
+    while (vecino != null && contador < t) {
+        // Verificamos si el vecino ya ha sido visitado
+        if (!vecino.isVisitado()) {
+            // Verificamos si la parada actual tiene sucursal
+            if (vecino.getParada().getSucursal()) {
+                paradasNoValidas.insertFinal(vecino.getParada().getNparada()); // Agregamos a la lista de no válidas
+            } else {
+                nodosVisitados.insertFinal(vecino.getParada().getNparada()); // Marcamos el nodo como visitado
+                contador++; // Incrementamos el contador solo si no es una sucursal
             }
-            pointer = pointer.getNext();
-            index++;
+            vecino.setVisitado(true); // Marcamos el vecino como visitado
+            buscarDFSRec(vecino, t, contador); // Llamada recursiva para el vecino
         }
-        return -1; // Si no se encuentra el nodo
+        vecino = vecino.getNext(); // Avanzamos al siguiente vecino
     }
 }
+
+// Método para obtener la lista de paradas no válidas
+public Lista getParadasNoValidas() {
+    return paradasNoValidas; // Devuelve la lista de paradas no válidas
+}
+
+    public void buscarBFS(String nombreInicio, int n) {
+    NodoG nodoInicio = searchByname(nombreInicio);
+    
+    if (nodoInicio == null) {
+        System.out.println("Nodo no encontrado: " + nombreInicio);
+        return;
+    }
+
+    // Usamos una cola para la búsqueda en amplitud
+    ListaG cola = new ListaG();
+    nodosVisitados = new Lista(); // Reiniciamos la lista de nodos visitados
+    cola.insertFinalG(nodoInicio); // Agregamos el nodo inicial a la cola
+    nodoInicio.setVisitado(true); // Marcamos como visitado
+
+    int contador = 0; // Contador de paradas visitadas
+
+    while (!cola.isEmpty() && contador < n) {
+        NodoG nodoActual = cola.eliminarPrimero();
+        cola.deleteBegin(); // Removemos el nodo de la cola
+
+        // Verificamos si la parada actual tiene sucursal
+        if (nodoActual.getParada().getSucursal()) {
+            JOptionPane.showMessageDialog(null,"Parada no válida: " + nodoActual.getParada().getNparada());
+            
+            continue; // Si tiene sucursal, no la contamos
+        }
+
+        // Marcamos el nodo actual como visitado
+        if (!nodoActual.equals(nodoInicio)) {
+        nodosVisitados.insertFinal(nodoActual.getParada().getNparada()); // Marcamos el nodo como visitado
+        contador++; // Incrementamos el contador
+        }
+        // Recorremos los nodos adyacentes
+        ListaG adyacentes = nodoActual.getAdyacentes();
+        NodoG vecino = adyacentes.getHead();
+
+        while (vecino != null && contador < n) {
+            if (!vecino.isVisitado()) { // Verificamos si el vecino ya fue visitado
+                cola.insertFinalG(vecino); // Agregamos el vecino a la cola
+                vecino.setVisitado(true); // Marcamos como visitado
+            }
+            vecino = vecino.getNext(); // Avanzamos al siguiente vecino
+        }
+    }
+
+    // Imprimir nodos visitados
+    Nodo pointer = nodosVisitados.getHead();
+    System.out.println("Nodos visitados:");
+    while (pointer != null) {
+        System.out.println(pointer.getElement());
+        pointer = pointer.getNext();
+    }
+}
+}
+
     
     
     

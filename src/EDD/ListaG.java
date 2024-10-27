@@ -135,6 +135,29 @@ public class ListaG {
         }
     }
     
+    public void insertFinalG(NodoG nodoG) {
+    if (isEmpty()) {
+        setHead(nodoG);
+    } else {
+        NodoG pointer = getHead();
+        while (pointer.getNext() != null) {
+            pointer = pointer.getNext();
+        }
+        pointer.setNext(nodoG);
+    }
+    length++;
+}
+    public NodoG eliminarPrimero() {
+    if (isEmpty()) {
+       
+        return null;
+    } else {
+        NodoG temp = getHead();
+        setHead(temp.getNext());
+        length--;
+        return temp;
+    }
+}
 }
     
 

@@ -127,8 +127,8 @@ public class Lista implements Listabase{
             return temp;
         }
     }
+    
 
-   
     @Override
     public Object deleteAtIndex(int index) {
         if (isEmpty()){

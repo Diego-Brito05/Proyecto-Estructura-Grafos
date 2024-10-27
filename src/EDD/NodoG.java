@@ -63,6 +63,9 @@ public class NodoG {
     }
     
     
+    
+    
+
     //imprime los atributos del nodo
     public void print(){
         System.out.println("-----------------------------------");
