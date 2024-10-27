@@ -297,7 +297,7 @@ public class ModGraph extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Sucursal colocada en "+ sucur);
            
             String nuvo ="node {icon-mode: at-left; icon: url('data/Smiley_032.png');}";
-            Menu.libro.getNode(tom-1).setAttribute("ui.stylesheet", nuvo);
+            
             Menu.libro.getNode(tom-1).setAttribute("ui.label", "🏠︎"+sucur+"🏠");
             
             
@@ -320,7 +320,7 @@ public class ModGraph extends javax.swing.JFrame {
             
         }
         Menu.grafo.buscarBFS(par, t);
-        int tom= Menu.grafo.buscarpar(par).getNumero();
+        
         
             
         

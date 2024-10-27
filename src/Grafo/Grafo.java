@@ -263,7 +263,7 @@ private void buscarDFSRec(NodoG nodoActual, int t, int contador) {
     }
 }
 
-// Método para obtener la lista de paradas no válidas
+
 
 
     public void buscarBFS(String nombreInicio, int n) {

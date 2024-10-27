@@ -9,7 +9,7 @@ import EDD.Lista;
 import EDD.NodoG;
 import Grafo.Arista;
 import Grafo.Grafo;
-import Auxiliar.Auxiliar;
+
 import static Interfaces.ModGraph.gsucur;
 import LectorJson.LectorJson;
 import java.io.File;
@@ -160,7 +160,7 @@ public class Menu extends javax.swing.JFrame {
     */
     private void CargaArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargaArchivoActionPerformed
         LectorJson LeerJson =new LectorJson();
-        Auxiliar auxiliar=new Auxiliar();
+        
         Grafo grafo=new Grafo();
         Lista parada = new Lista();
         Lista relaciones = new Lista();
