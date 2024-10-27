@@ -9,12 +9,23 @@ import javax.swing.*;
 import EDD.*;
 import Grafo.*;
 import Interfaces.Menu.*;
-
 import static Interfaces.Menu.libro;
+import LectorJson.LectorJson;
+import Interfaces.Menu;
+
 import static Interfaces.Menu.mySlylesheet;
+import static Interfaces.Menu.v0;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
+import org.graphstream.ui.swing_viewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.ViewPanel;
+import org.graphstream.ui.view.Viewer;
 
 
 /**
@@ -23,16 +34,24 @@ import org.graphstream.graph.implementations.MultiGraph;
  */
 public class ModGraph extends javax.swing.JFrame {
 
+    
+        static File archivo;
+        static String gsucur;
+        static Grafo grafo;
     /**
      * Creates new form ModGraph
      */
-    public ModGraph() {
+        public ModGraph(Grafo grafo, File archivo) {
+        this.setVisible(true);
         initComponents();
-        
-    }
+        this.setLocationRelativeTo(null);
+        this.archivo= archivo;
+        this.grafo= grafo;
+        }
+
    
         
-static String gsucur;
+
        
         
     
@@ -62,6 +81,16 @@ static String gsucur;
         BuBP = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        newLinea = new javax.swing.JTextArea();
+        crearLinea = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Editor");
@@ -104,8 +133,8 @@ static String gsucur;
         jLayeredPane1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 47, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel4.setText("Colocar Sucursales");
-        jLayeredPane1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 47, -1, -1));
+        jLabel4.setText("Agregar nueva Línea");
+        jLayeredPane1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
         jLabel5.setText("Escriba una parada");
         jLabel5.setFocusable(false);
@@ -134,11 +163,11 @@ static String gsucur;
         jLayeredPane1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 152, -1, -1));
 
         secsuc.setBackground(new java.awt.Color(204, 204, 204));
+        secsuc.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLayeredPane1.add(secsuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 204, 133, -1));
 
-        jLabel7.setText("Escriba una Sucursal");
         jLabel7.setToolTipText("");
-        jLayeredPane1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 182, -1, -1));
+        jLayeredPane1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, -1, -1));
 
         BuBP.setBackground(new java.awt.Color(255, 153, 102));
         BuBP.setText("DFS");
@@ -156,11 +185,57 @@ static String gsucur;
         jButton2.setText("BFS");
         jLayeredPane1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 257, -1, -1));
 
+        newLinea.setBackground(new java.awt.Color(204, 204, 204));
+        newLinea.setColumns(20);
+        newLinea.setRows(5);
+        newLinea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScrollPane1.setViewportView(newLinea);
+
+        jLayeredPane1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, -1, 130));
+
+        crearLinea.setBackground(new java.awt.Color(255, 153, 102));
+        crearLinea.setText("Agregar");
+        crearLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearLineaActionPerformed(evt);
+            }
+        });
+        jLayeredPane1.add(crearLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel9.setText("Colocar Sucursales");
+        jLayeredPane1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 47, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel10.setText("Parada1:Parada2");
+        jLabel10.setToolTipText("");
+        jLayeredPane1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, 20));
+
+        jLabel11.setText("Escriba una Sucursal");
+        jLabel11.setToolTipText("");
+        jLayeredPane1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 182, -1, -1));
+
+        jLabel12.setText("Agregue las líneas en orden");
+        jLabel12.setToolTipText("");
+        jLayeredPane1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
+
+        jLabel13.setText("y sepárelas con un salto de línea");
+        jLabel13.setToolTipText("");
+        jLayeredPane1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, 20));
+
+        jLabel14.setText("Para líneas con acceso peatonal");
+        jLabel14.setToolTipText("");
+        jLayeredPane1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, 20));
+
+        jLabel15.setText("escríbalas de la siguiente forma");
+        jLabel15.setToolTipText("");
+        jLayeredPane1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,6 +251,7 @@ static String gsucur;
         String tt = newt.getText();
         if (isNumeric(tt) == true) {
             t = Integer.parseInt(tt);
+            JOptionPane.showMessageDialog(null, "El Valor de t ahora es: " + tt);
             
         } else {
             
@@ -233,6 +309,7 @@ static String gsucur;
         String par= secsuc.getText();
         if(!Menu.grafo.searchByname(par).getParada().getSucursal()){
             JOptionPane.showMessageDialog(null, par +" No cuenta con una sucursal");
+            
         }
         Menu.grafo.BP(par, t);
         JOptionPane.showMessageDialog(null, par +" Si cuenta con una sucursal");
@@ -242,6 +319,30 @@ static String gsucur;
     private void newtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newtActionPerformed
+
+    private void crearLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearLineaActionPerformed
+                Lista paradas = new Lista();
+                Lista relaciones = new Lista();
+        
+                // Obtiene el texto del JTextArea                
+                String texto = newLinea.getText();
+                
+                LectorJson lector = new LectorJson();
+                
+                // Divide el texto en un arreglo de String, cada línea es un elemento
+                String[] nuevaLin = texto.split("\n");       
+                Integer tamano = nuevaLin.length;
+                if (tamano != 1 ){
+                    
+                    lector.escrituraJson(archivo,nuevaLin, tamano);
+                    newLinea.setText("");                   
+                }else{
+                    JOptionPane.showMessageDialog(null,"No se agregó ninguna parada o sólo una parada");
+                }
+                
+                
+                
+    }//GEN-LAST:event_crearLineaActionPerformed
     
     /**
      * @param args the command line arguments
@@ -271,18 +372,20 @@ static String gsucur;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ModGraph().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuBP;
     private javax.swing.JButton addsuc;
+    private javax.swing.JButton crearLinea;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -290,7 +393,10 @@ static String gsucur;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea newLinea;
     private javax.swing.JTextField newt;
     private javax.swing.JTextField secsuc;
     private javax.swing.JTextField sucursal;

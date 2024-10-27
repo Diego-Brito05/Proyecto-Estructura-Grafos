@@ -126,15 +126,18 @@ public class LectorJson {
    }
 
 
-    public void escrituraJson(Grafo grafo, File archivo, String [] nLista, Integer tamano){
-        String textoJson="{"+"\n"+"\"Linea\":[" + "\n"; //string que va a sobreescribir el archivo
-        for(Integer i=0; i>tamano ; i++){
-            String LineaAct = nLista[i];
+    public void escrituraJson(File archivo, String [] nLista, Integer tamano){
+        String textoJson="""
+                         {
+                         "Linea":[
+                         """; //string que va a sobreescribir el archivo
+        for(Integer i=0; i<tamano ; i++){
+            String LineaAct = nLista[i].trim();
             if (LineaAct.contains(":")) {
                 String LineaMod = "{\"" + LineaAct + "\"},";
                 textoJson = textoJson + LineaMod + "\n";
             }else{
-                String LineaMod = "{\"" + LineaAct + "\"},";
+                String LineaMod = "\"" + LineaAct + "\",";
                 textoJson = textoJson + LineaMod + "\n";
             }
         }
@@ -149,7 +152,7 @@ public class LectorJson {
 
             // 2. Releer el archivo y escribir el nuevo contenido con la línea añadida
             BufferedReader br2 = new BufferedReader(new FileReader(archivo));
-            PrintWriter pw = new PrintWriter(new FileWriter(archivo + ".tmp")); // Escribir a un archivo temporal
+            PrintWriter pw = new PrintWriter(new FileWriter(archivo +"edit.Json")); // Escribir a un archivo temporal
 
             String linea;
             int contador = 0;
@@ -171,17 +174,17 @@ public class LectorJson {
 
             // Reemplazar el archivo original por el archivo temporal
             File archivoOriginal = new File(archivo.getPath());
-            File archivoTemporal = new File(archivo.getPath() + ".tmp");
+            File archivoTemporal = new File(archivo.getPath() + "edit.Json");
 
             if (archivoOriginal.delete()) {
                 archivoTemporal.renameTo(archivoOriginal);
-                System.out.println("La cadena ha sido insertada correctamente.");
+                JOptionPane.showMessageDialog(null,"Se ha creado una version nueva con la linea, para accceder a ela carguela en la funcion cargar archivo.");
             } else {
-                System.out.println("Error al reemplazar el archivo original.");
+                JOptionPane.showMessageDialog(null,"Error al reemplazar el archivo original.");
             }
 
         } catch (IOException e) {
-            System.out.println("Error al reemplazar el archivo original.");
+            JOptionPane.showMessageDialog(null,"Error al reemplazar el archivo original.");
         }  
     } 
 } 

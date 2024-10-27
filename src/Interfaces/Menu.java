@@ -32,14 +32,14 @@ import org.graphstream.ui.swing_viewer.ViewPanel;
 
 /**
  *
- * @author cesar
- * version 21/10/23
+ * @author Diego
+ * version 26/10/24
  */
 public class Menu extends javax.swing.JFrame {
 
     static Grafo grafo;
     public static ModificarGrafo v0;
-    static private File archivo;
+    static File archivo;
     static Graph libro;
     static String mySlylesheet = "node { size: 15px; shape:circle; fill-color:blue; text-size: 20;text-background-color:white; text-background-mode:rounded-box; text-alignment:at-right; shadow-mode: plain; shadow-color: black; shadow-width:5px; shadow-offset: 0px;text-offset: 5px, 5px;}"
             + "edge { size : 10px; fill-color: black;}";
@@ -104,6 +104,7 @@ public class Menu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -115,7 +116,7 @@ public class Menu extends javax.swing.JFrame {
                 CargaArchivoActionPerformed(evt);
             }
         });
-        jPanel1.add(CargaArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 280, -1));
+        jPanel1.add(CargaArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 280, -1));
 
         MostrarGrafo.setBackground(new java.awt.Color(255, 153, 102));
         MostrarGrafo.setText("MOSTRAR GRAFO");
@@ -124,7 +125,7 @@ public class Menu extends javax.swing.JFrame {
                 MostrarGrafoActionPerformed(evt);
             }
         });
-        jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 397, 280, -1));
+        jPanel1.add(MostrarGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 280, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 153, 102));
         jButton1.setText("X");
@@ -133,13 +134,13 @@ public class Menu extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 485, 90, 20));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 90, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +180,7 @@ public class Menu extends javax.swing.JFrame {
     Este metodo se encarga de mostrar el grafo
     
     */
-    private void displayGraph(Graph graph2) {
+    public void displayGraph(Graph graph2) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -254,6 +255,8 @@ public class Menu extends javax.swing.JFrame {
             catch(Exception err){
                     JOptionPane.showMessageDialog(null, err);
             }
+            new ModGraph(this.getGrafo(),this.getArchivo()).setVisible(true);
+           
     }                                            
     }//GEN-LAST:event_MostrarGrafoActionPerformed
     
@@ -277,7 +280,7 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu(grafo,archivo).setVisible(true);
+                new Menu(null,archivo).setVisible(true);
             }
         });
     }
